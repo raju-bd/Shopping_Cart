@@ -98,18 +98,21 @@ class _ShoppingCartHomePageState extends State<ShoppingCartHomePage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 16,
-              color: highlight ? Colors.deepPurple.shade900 : Colors.grey.shade700,
-              fontWeight: highlight ? FontWeight.bold : FontWeight.w500,
+          Expanded(
+            child: Text(
+              label,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 16,
+                color: highlight ? Colors.deepPurple.shade900 : Colors.grey.shade700,
+                fontWeight: highlight ? FontWeight.bold : FontWeight.w500,
+              ),
             ),
           ),
           Text(
             value,
+            textAlign: TextAlign.right,
             style: TextStyle(
               fontSize: 16,
               color: highlight ? Colors.deepPurple : Colors.black87,
@@ -290,12 +293,12 @@ class _ShoppingCartHomePageState extends State<ShoppingCartHomePage> {
                   const SizedBox(height: 12),
                   Divider(color: Colors.deepPurple.withValues(alpha: 0.15)),
                   const SizedBox(height: 8),
-                  _summaryRow('Total Items: $totalItems', ''),
-                  _summaryRow('Subtotal: ৳$subtotal', ''),
-                  _summaryRow('Discount: ৳$discount', ''),
+                  _summaryRow('Total Items', totalItems.toString()),
+                  _summaryRow('Subtotal', '৳$subtotal'),
+                  _summaryRow('Discount', '৳$discount'),
                   Divider(color: Colors.deepPurple.withValues(alpha: 0.15)),
                   const SizedBox(height: 8),
-                  _summaryRow('Grand Total: ৳$grandTotal', '', highlight: true),
+                  _summaryRow('Grand Total', '৳$grandTotal', highlight: true),
                 ],
               ),
             ),

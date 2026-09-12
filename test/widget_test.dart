@@ -18,9 +18,16 @@ void main() {
     await tester.tap(addButtons.first);
     await tester.pump();
 
-    expect(find.text('Total Items: 1'), findsOneWidget);
-    expect(find.text('Subtotal: ৳500'), findsOneWidget);
-    expect(find.text('Grand Total: ৳500'), findsOneWidget);
+    expect(find.text('Total Items'), findsOneWidget);
+    expect(find.text('Subtotal'), findsOneWidget);
+    expect(find.text('Grand Total'), findsOneWidget);
+    expect(find.text('1'), findsOneWidget);
+    expect(find.text('৳500'), findsNWidgets(2));
+
+    final totalLabel = tester.widget<Text>(find.text('Total Items'));
+    final totalValue = tester.widget<Text>(find.text('1'));
+    expect(totalLabel.textAlign, TextAlign.left);
+    expect(totalValue.textAlign, TextAlign.right);
   });
 
   testWidgets('search and category filter work together',
@@ -58,7 +65,9 @@ void main() {
     await tester.pump();
 
     expect(find.textContaining('Quantity: 0'), findsWidgets);
-    expect(find.text('Subtotal: ৳0'), findsOneWidget);
+    expect(find.text('Subtotal'), findsOneWidget);
+    expect(find.text('Discount'), findsOneWidget);
+    expect(find.text('৳0'), findsNWidgets(3));
 
     final addButton = find.descendant(
       of: itemCard,
@@ -70,9 +79,9 @@ void main() {
       await tester.pump();
     }
 
-    expect(find.text('Total Items: 6'), findsOneWidget);
-    expect(find.text('Subtotal: ৳3000'), findsOneWidget);
-    expect(find.text('Discount: ৳300'), findsOneWidget);
-    expect(find.text('Grand Total: ৳2700'), findsOneWidget);
+    expect(find.text('6'), findsOneWidget);
+    expect(find.text('৳3000'), findsOneWidget);
+    expect(find.text('৳300'), findsOneWidget);
+    expect(find.text('৳2700'), findsOneWidget);
   });
 }
