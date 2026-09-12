@@ -53,7 +53,7 @@ class ShoppingCartHomePage extends StatefulWidget {
 
 class _ShoppingCartHomePageState extends State<ShoppingCartHomePage> {
   // This local list works as the full product catalog for the shopping cart.
-  List<Product> _products = [
+  final List<Product> _products = [
     Product(name: 'T-Shirt', price: 500, category: 'Clothes'),
     Product(name: 'Shoes', price: 1500, category: 'Fashion'),
     Product(name: 'Watch', price: 2000, category: 'Accessories'),
@@ -187,7 +187,7 @@ class _ShoppingCartHomePageState extends State<ShoppingCartHomePage> {
             ),
             const SizedBox(height: 12),
 
-            Expanded(
+            Flexible(
               child: _filteredProducts.isEmpty
                   ? const Center(
                       child: Text(
@@ -196,6 +196,8 @@ class _ShoppingCartHomePageState extends State<ShoppingCartHomePage> {
                       ),
                     )
                   : ListView(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
                       children: _filteredProducts.map((product) {
                         return Card(
                           margin: const EdgeInsets.only(bottom: 12),
