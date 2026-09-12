@@ -94,6 +94,33 @@ class _ShoppingCartHomePageState extends State<ShoppingCartHomePage> {
 
   int get grandTotal => subtotal - discount;
 
+  Widget _summaryRow(String label, String value, {bool highlight = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 16,
+              color: highlight ? Colors.deepPurple.shade900 : Colors.grey.shade700,
+              fontWeight: highlight ? FontWeight.bold : FontWeight.w500,
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 16,
+              color: highlight ? Colors.deepPurple : Colors.black87,
+              fontWeight: highlight ? FontWeight.bold : FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   void _updateQuantity(String productName, int change) {
     setState(() {
       final index = _products.indexWhere((product) => product.name == productName);
@@ -222,21 +249,51 @@ class _ShoppingCartHomePageState extends State<ShoppingCartHomePage> {
             ),
             const SizedBox(height: 12),
 
-            // Summary values update every time quantity changes.
+            // Summary values update every time quantity changes and are presented in a clean, modern card.
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(12),
+                gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFFEEE7FF), Color(0xFFF8F1FF)],
+                ),
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.deepPurple.withValues(alpha: 0.12),
+                    blurRadius: 12,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Total Items: $totalItems'),
-                  Text('Subtotal: ৳$subtotal'),
-                  Text('Discount: ৳$discount'),
-                  Text('Grand Total: ৳$grandTotal'),
+                  Row(
+                    children: [
+                      Icon(Icons.receipt_long, color: Colors.deepPurple.shade700),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Cart Summary',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.deepPurple.shade700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Divider(color: Colors.deepPurple.withValues(alpha: 0.15)),
+                  const SizedBox(height: 8),
+                  _summaryRow('Total Items: $totalItems', ''),
+                  _summaryRow('Subtotal: ৳$subtotal', ''),
+                  _summaryRow('Discount: ৳$discount', ''),
+                  Divider(color: Colors.deepPurple.withValues(alpha: 0.15)),
+                  const SizedBox(height: 8),
+                  _summaryRow('Grand Total: ৳$grandTotal', '', highlight: true),
                 ],
               ),
             ),

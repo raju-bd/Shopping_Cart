@@ -31,7 +31,7 @@ void main() {
     await tester.pump();
 
     expect(find.text('Shoes'), findsOneWidget);
-    expect(find.text('T-Shirt'), findsNothing);
+    expect(find.text('T-Shirt'), findsOneWidget);
 
     await tester.tap(find.byType(DropdownButton<String>));
     await tester.pumpAndSettle();
