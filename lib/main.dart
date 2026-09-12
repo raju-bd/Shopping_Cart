@@ -195,58 +195,58 @@ class _ShoppingCartHomePageState extends State<ShoppingCartHomePage> {
                         style: TextStyle(fontSize: 16),
                       ),
                     )
-                  : ListView(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      children: _filteredProducts.map((product) {
-                        return Card(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        product.name,
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
+                  : SingleChildScrollView(
+                      child: Column(
+                        children: _filteredProducts.map((product) {
+                          return Card(
+                            margin: const EdgeInsets.only(bottom: 12),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          product.name,
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
+                                        const SizedBox(height: 6),
+                                        Text('Price: ৳${product.price}'),
+                                        Text('Category: ${product.category}'),
+                                        const SizedBox(height: 6),
+                                        Text('Quantity: ${product.quantity}'),
+                                      ],
+                                    ),
+                                  ),
+                                  Column(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () =>
+                                            _updateQuantity(product.name, 1),
+                                        icon: const Icon(Icons.add),
+                                        tooltip: 'Increase quantity',
                                       ),
-                                      const SizedBox(height: 6),
-                                      Text('Price: ৳${product.price}'),
-                                      Text('Category: ${product.category}'),
-                                      const SizedBox(height: 6),
-                                      Text('Quantity: ${product.quantity}'),
+                                      IconButton(
+                                        onPressed: () =>
+                                            _updateQuantity(product.name, -1),
+                                        icon: const Icon(Icons.remove),
+                                        tooltip: 'Decrease quantity',
+                                      ),
                                     ],
                                   ),
-                                ),
-                                Column(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () =>
-                                          _updateQuantity(product.name, 1),
-                                      icon: const Icon(Icons.add),
-                                      tooltip: 'Increase quantity',
-                                    ),
-                                    IconButton(
-                                      onPressed: () =>
-                                          _updateQuantity(product.name, -1),
-                                      icon: const Icon(Icons.remove),
-                                      tooltip: 'Decrease quantity',
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      }).toList(),
+                          );
+                        }).toList(),
+                      ),
                     ),
             ),
             const SizedBox(height: 12),
